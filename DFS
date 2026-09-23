@@ -1,0 +1,49 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void DFS(int node, vector<vector<int>>& graph, vector<bool>& visited) {
+    // Mark the current node as visited
+    visited[node] = true;
+
+    cout << node << " ";
+
+    // Visit all adjacent nodes
+    for (int neighbour : graph[node]) {
+        if (!visited[neighbour]) {
+            DFS(neighbour, graph, visited);
+        }
+    }
+}
+
+int main() {
+    int n, e;
+
+    cout << "Enter number of vertices: ";
+    cin >> n;
+
+    cout << "Enter number of edges: ";
+    cin >> e;
+
+    vector<vector<int>> graph(n);
+    vector<bool> visited(n, false);
+
+    cout << "Enter edges:\n";
+
+    for (int i = 0; i < e; i++) {
+        int u, v;
+        cin >> u >> v;
+
+        graph[u].push_back(v);
+        graph[v].push_back(u);  // Remove this for a directed graph
+    }
+
+    int start;
+    cout << "Enter starting vertex: ";
+    cin >> start;
+
+    cout << "DFS Traversal: ";
+    DFS(start, graph, visited);
+
+    return 0;
+}
